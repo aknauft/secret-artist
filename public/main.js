@@ -88,7 +88,8 @@ socket.on('update:playerlist', function(d){
         arr.push('</li>');
     }
     $('.player-list').html(arr.join(''));
-    
+    // Should probably want some way to kick a player... for example, player left the browser window open, and now we can't start.
+    // Or, we could just start without kicking. That might be better.
     
 //    var li = $('#'+d.id);
 //    if(li.length === 0)
@@ -131,21 +132,23 @@ socket.on('start', function(d){
     var path = [];
     var currline;
    
-   draw.on('mousedown', startLine);
-    draw.on('touchstart', startLine);
+   draw.on('mousedown', function(e){e.preventDefault(); startLine()});
+    draw.on('touchstart', function(e){e.preventDefault(); startLine()});
 
     draw.on('mousemove', function(e){
+        e.preventDefault();
        //console.log(e.offsetX, e.offsetY);
        moveLine(e.offsetX, e.offsetY);
     });
     draw.on('touchmove', function(e){
+        e.preventDefault();
         var target = e.currentTarget;
         var touch = e.touches[0];
         var pos = touchOffset(touch, target);
         moveLine(pos.x, pos.y);
     });
-    draw.on('mouseup', endLine);
-    draw.on('touchend touchcancel', endLine);
+    draw.on('mouseup', function(e){e.preventDefault(); endLine()});
+    draw.on('touchend touchcancel',function(e){e.preventDefault(); endLine()});
 /*
 */
     function startLine(){
@@ -219,6 +222,11 @@ $('#noun').on('focus', function(){
 $('#ready').on('click', function(){
     setPlayerReady(true);
 });
+
+$('#nounhide').on('click', function(){
+    $('#nounspace').toggle();
+});
+
 
   // Prevents input from having injected markup
 function cleanInput(input) {
