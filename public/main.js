@@ -131,30 +131,46 @@ socket.on('start', function(d){
     var path = [];
     var currline;
    
-   draw.on('mousedown', function(e){
-    //prevline = lineNum;
-    lineNum++;
-    path = [];
-    currline = eggs[uniqueID].yolk.polyline();
-    //currline.addClass('progress');
-    currline.attr({fill:'none', stroke: '#FF9F40', 'stroke-width': 4});
-    //currline.opacity(1);
-    });
+   draw.on('mousedown', startLine);
+    draw.on('touchstart', startLine);
 
     draw.on('mousemove', function(e){
-        if(lineNum !== prevline){
-            path.push([e.offsetX, e.offsetY]);
+       console.log(e.offsetX, e.offsetY);
+       moveLine(e.offsetX, e.offsetY);
+    });
+    draw.on('touchmove', function(e){
+        var target = e.currentTarget;
+        var touch = e.touches[0];
+        var pos = touchOffset(touch, target);
+        moveLine(pos.x, pos.y);
+    });
+    draw.on('mouseup', endLine);
+    draw.on('touchend touchcancel', endLine);
+/*
+*/
+    function startLine(){
+    //prevline = lineNum;
+        lineNum++;
+        path = [];
+        currline = eggs[uniqueID].yolk.polyline();
+        //currline.addClass('progress');
+        currline.attr({fill:'none', stroke: '#FF9F40', 'stroke-width': 4});
+        //currline.opacity(1); 
+    }
+    function moveLine(offx, offy){
+       if(lineNum !== prevline){
+            path.push([offx, offy]);
             currline.plot(path);
         }
         socket.emit('drawing', {
             id: uniqueID,
             n: lineNum,
             points: path
-        });
-    });
-
-    draw.on('mouseup', function(e){
-        prevline = lineNum; // Done drawing
+        });        
+    }
+    function endLine(){
+               //console.log(e);
+       prevline = lineNum; // Done drawing
         currline.attr({fill:'none', stroke: '#FF9F40', 'stroke-width': 4}); 
         //currline.opacity(1);
         eggs[uniqueID].lines[lineNum] = currline
@@ -163,7 +179,14 @@ socket.on('start', function(d){
             n: lineNum,
             points: path
         });
-    });
+    }
+
+
+
+
+
+
+
 
 
     socket.on('draw', function(data){
@@ -178,9 +201,8 @@ socket.on('start', function(d){
         }
         line.plot(data.points);
     });  
-   
-   
 });
+
 socket.on('reveal noun', function(d){
     $('#nounspace').text("You are drawing: "+d.noun);
 });
@@ -201,6 +223,30 @@ $('#ready').on('click', function(){
   // Prevents input from having injected markup
 function cleanInput(input) {
     return $('<div/>').text(input).text();
+}
+
+
+function touchOffset (ev, target, out) {
+  target = target || ev.currentTarget || ev.srcElement
+  if (!Array.isArray(out)) {
+    out = {x:0,y: 0 }
+  }
+  var cx = ev.clientX || 0
+  var cy = ev.clientY || 0
+  var rect = getBoundingClientOffset(target)
+  out.x = cx - rect.left
+  out.y = cy - rect.top
+  return out
+}
+
+function getBoundingClientOffset (element) {
+  if (element === window ||
+      element === document ||
+      element === document.body) {
+    return {left:0, top:0};
+  } else {
+    return element.getBoundingClientRect()
+  }
 }
 
 //If I push these onto the server, new games can have the possibility of generating previous noun submissions. Which might be nice. 
