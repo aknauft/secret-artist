@@ -11,7 +11,7 @@ socket.on('welcome', function(d){
 });
 
 function highlightLines(id, opac){
-    console.log(id);
+    //console.log(id);
     eggs[id].yolk.opacity(opac);
     //eggs[id].yolk.stroke("#1914CC");
 }
@@ -135,7 +135,7 @@ socket.on('start', function(d){
     draw.on('touchstart', startLine);
 
     draw.on('mousemove', function(e){
-       console.log(e.offsetX, e.offsetY);
+       //console.log(e.offsetX, e.offsetY);
        moveLine(e.offsetX, e.offsetY);
     });
     draw.on('touchmove', function(e){
