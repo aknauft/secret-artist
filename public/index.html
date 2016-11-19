@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Collaborative SVG Drawing</title>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.3.6/svg.min.js"></script>
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+  <div id="wrapper">
+    <ul class="pages">
+        <li class="game page">
+            <ul class="game player-list">
+            </ul>
+            <div id="whiteboard">
+                
+            </div>       
+            <div id="nounspace">You are the secret artist!</div>
+            <!--<button>New Game</button>-->
+        </li>
+        <li class="lobby page">
+            <h1 class="title">Secret Artist</h1>
+            <hr>
+            <input type="text" id="name" placeholder="Enter your name" /><br>
+            <input type="text" id="noun" placeholder="Suggest something to draw" /><br>
+            
+            <button id="ready">Ready</button>
+
+
+            <hr>
+            <ul class="lobby player-list">
+            </ul>
+        </li>
+    </ul>
+  </div>
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="/main.js"></script>
+  </body>
+</html>
