@@ -1,10 +1,10 @@
 {
-  "name": "draw_svg",
+  "name": "secret_artist",
   "version": "1.0.0",
-  "description": "Collaborative drawing of SVG lines",
+  "description": "Collaborative drawing party game",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "Andrew Knauft",
   "license": "ISC",
