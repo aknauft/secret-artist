@@ -1,21 +1,23 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Collaborative SVG Drawing</title>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.3.6/svg.min.js"></script>
+    <title>Secret Artist</title>
       <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <link rel="stylesheet" href="style.css">
-  </head>
+      <link rel="stylesheet" href="style.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.3.6/svg.min.js"></script>
+   </head>
   <body>
   <div id="wrapper">
     <ul class="pages">
         <li class="game page">
+        <div class="col-left">
+            <div id='nounhide'><div id="nounspace">You are the secret artist!</div><div id="clickspace">(click to reveal word)</div></div>
             <ul class="game player-list">
             </ul>
-            <div id="whiteboard">
+         </div>
+            <div class="col-right" id="whiteboard">
                 
             </div>       
-            <div id='nounhide'><div id="nounspace">You are the secret artist!</div></div>
             <!--<button>New Game</button>-->
         </li>
         <li class="lobby page">
@@ -35,5 +37,29 @@
   </div>
       <script src="/socket.io/socket.io.js"></script>
       <script src="/main.js"></script>
+    
+    <!-- Useful for testing!
+    <script type="text/javascript">
+        var newPlayers = [];
+        for(var i=1; i<=36; i++){
+            newPlayers.push({id: i, name: "Player "+i, ready: (Math.random()<0.2)});
+        }
+        var arr = [];    
+        for(var i=0; i<newPlayers.length; i++){
+            arr.push('<li id = "' + newPlayers[i].id+'" class="' + newPlayers[i].id);
+            if(newPlayers[i].ready)
+                arr.push(' ready');
+            arr.push('">');
+            arr.push(newPlayers[i].name);
+            arr.push('</li>');
+        }
+        $('.player-list').html(arr.join(''));
+
+    function swap(){
+        $('.lobby').toggle();
+        $('.game').toggle();
+    }
+    -->
+    </script>
   </body>
 </html>

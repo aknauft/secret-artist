@@ -141,6 +141,9 @@ socket.on('start', function(d){
        moveLine(e.offsetX, e.offsetY);
     });
     draw.on('touchmove', function(e){
+        if(e.touches.length > 1){
+            return; //Testing needed... Intent is to allow scrolling when two or more fingers are used.
+        }
         e.preventDefault();
         var target = e.currentTarget;
         var touch = e.touches[0];
@@ -225,6 +228,7 @@ $('#ready').on('click', function(){
 
 $('#nounhide').on('click', function(){
     $('#nounspace').toggle();
+    $('#clickspace').toggle();
 });
 
 
