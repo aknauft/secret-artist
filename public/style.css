@@ -112,12 +112,14 @@ input{
     border: 1px solid #D1D1D1;
     padding: 6px 10px;
     border-radius: 4px;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.75em;
+    margin-top: 0.75em;
 }
 
 button{
     height: 38px;
-    margin-bottom:1rem;
+    margin-top:1em;
+    margin-bottom:0.75em;
     background-color: transparent;
     color: #555;
     border-radius:4px;
@@ -127,4 +129,3 @@ button{
     padding: 0 30px;
     cursor:pointer;
 }
-

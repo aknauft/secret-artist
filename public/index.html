@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  
     <title>Secret Artist</title>
       <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
       <link rel="stylesheet" href="style.css">
@@ -37,11 +39,12 @@
   </div>
       <script src="/socket.io/socket.io.js"></script>
       <script src="/main.js"></script>
-    
     <!-- Useful for testing!
+    -->
     <script type="text/javascript">
+        function addPlayers(n){
         var newPlayers = [];
-        for(var i=1; i<=36; i++){
+        for(var i=1; i<=n; i++){
             newPlayers.push({id: i, name: "Player "+i, ready: (Math.random()<0.2)});
         }
         var arr = [];    
@@ -54,12 +57,11 @@
             arr.push('</li>');
         }
         $('.player-list').html(arr.join(''));
-
+}
     function swap(){
         $('.lobby').toggle();
         $('.game').toggle();
     }
-    -->
     </script>
   </body>
 </html>
